@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApplication4.Student>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new {@class ="btn btn-info" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Batch.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @using (Ajax.BeginForm("MarkAttendance", "Students", new AjaxOptions() { 
+    
+        HttpMethod = "Get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "result2"
+    
+    }))
+    {
+
+   
+foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Batch.Name)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+        <td>
+            <input type="checkbox" name="attendance" value="1" />
+        </td>
+    </tr>
+}
+    <tr>
+        <td>
+            <input type="submit" name="submit" value="Mark Attendance" class="btn btn-success" />
+        </td>
+    </tr>
+    }
+
+
+    
+</table>
+
+<div id="result2"></div>
